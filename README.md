@@ -21,7 +21,7 @@ Is a tool for scanning and massive exploits. Our tools target several open sourc
 1. ```PHP 7 (version and up)```
 2. ```Install Modules PHP : php-cli & php-curl for linux```
 
-## ⭕️ Credits
+## Credits
 
 - Thanks to allah
 - Edo Maland (Powerstager) https://github.com/Screetsec
