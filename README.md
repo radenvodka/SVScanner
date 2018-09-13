@@ -28,4 +28,4 @@ Is a tool for scanning and massive exploits. Our tools target several open sourc
 - Jack Wilder admin in http://www.linuxsec.org
 
 ## Disclaimer
-Note: modifications, changes, or changes to this code can be accepted, however, every public release that uses this code must be approved by writing this tool (Edo -m-)
+Note: modifications, changes, or changes to this code can be accepted, however, every public release that uses this code must be approved by writing this tool (Eka S)
