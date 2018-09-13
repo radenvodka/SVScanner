@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 session_start();
 define('SENDINBOX_PATH', realpath(dirname(__FILE__)));
 require_once("Modules/database.php");
@@ -50,10 +50,10 @@ class wploit
 		}
 		echo $this->wploit_modules->color("random","\n========================================================\r\n\n");
 		$select = $this->wploit_modules->stuck("Select Number : ");
-		//$threads = $this->wploit_modules->stuck("Threads : ");
+		$threads = $this->wploit_modules->stuck("Threads : ");
 		
 		//$select  	= 3;
-		$threads  	= 500;
+		//$threads  	= 500;
 
 		$this->wploit_modules->threads 	= $threads;
 		
