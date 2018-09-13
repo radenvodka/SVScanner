@@ -3,8 +3,8 @@ error_reporting(0);
 /**
  * @Author: Eka Syahwan
  * @Date:   2017-11-06 22:54:36
- * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2018-09-05 21:05:02
+ * @Last Modified by:   shor7cut
+ * @Last Modified time: 2018-09-13 12:11:58
  */
 class Sdata
 {
@@ -37,7 +37,7 @@ class Sdata
 		    if($custom[$i]['rto']){
 		    	curl_setopt($ch[$i], CURLOPT_TIMEOUT, $custom[$i]['rto']);
 		    }else{
-		    	curl_setopt($ch[$i], CURLOPT_TIMEOUT, 10);
+		    	curl_setopt($ch[$i], CURLOPT_TIMEOUT, 60);
 		    }
 		    if($custom[$i]['header']){
 		    	curl_setopt($ch[$i], CURLOPT_HTTPHEADER, $custom[$i]['header']);

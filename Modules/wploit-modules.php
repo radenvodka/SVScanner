@@ -2,8 +2,8 @@
 /**
  * @Author: Eka Syahwan
  * @Date:   2018-09-05 18:48:37
- * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2018-09-07 10:40:16
+ * @Last Modified by:   shor7cut
+ * @Last Modified time: 2018-09-10 17:38:18
  */
 class wploit_modules
 {
@@ -71,6 +71,9 @@ class wploit_modules
 		echo "\r\n";
 		$pil = $this->stuck("Enter the list number : ");
 		$fgt = file_get_contents($arrayList[$pil]);
+
+		$namafile = pathinfo($arrayList[$pil])['filename'];
+
 		if(empty($fgt)){
 			echo $this->color("red","[SVScanner] Your choice number is wrong!!!\r\n");
 			die();
@@ -90,10 +93,10 @@ class wploit_modules
 		$threads 		= $this->threads;
 		$delay 			= $this->delay;
 		$fgt 			= array_chunk($fgt, $threads);
-		return array('list' => $fgt,'delay' => $delay,'threads' => $threads);
+		return array('list' => $fgt,'delay' => $delay,'threads' => $threads , 'namafile' => $namafile);
 	}
     public function color($color = "random" , $text){
-    	if(true == true){
+    	if(false == true){
 	    	$arrayColor = array(
 				'grey' 		=> '1;30',
 				'red' 		=> '1;31',

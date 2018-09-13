@@ -2,8 +2,8 @@
 /**
  * @Author: Eka Syahwan
  * @Date:   2018-09-05 18:32:27
- * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2018-09-07 01:41:23
+ * @Last Modified by:   shor7cut
+ * @Last Modified time: 2018-09-12 09:02:40
 */
 class Database
 {	
@@ -23,6 +23,17 @@ class Database
 		$menu[] = array(
 			'title' 	=> '[Scanner] Cms Detector',
 			'action' 	=> 'scanner_cms_detector', 
+		);
+		return $menu;
+	}
+	public function menu_exploit(){
+		$menu[] = array(
+			'title' 	=> 'Email Subscribers',
+			'action' 	=> 'Email_Subscribers', 
+		);
+		$menu[] = array(
+			'title' 	=> 'Gravity Forms',
+			'action' 	=> 'Gravity_Forms', 
 		);
 		return $menu;
 	}
@@ -60,7 +71,6 @@ class Database
 			'cherry-plugin' 				=> 'wp-content/plugins/cherry-plugin/readme.txt',
 			'sfwd-lms'						=> 'wp-content/plugins/sfwd-lms/readme.txt',
 			'woocommerce' 					=> 'wp-content/plugins/woocommerce/readme.txt',
-			'email-subscribers' 			=> 'wp-content/plugins/email-subscribers/readme.txt',
 			'qualifire' 					=> 'wp-content/themes/qualifire/qualifire/style.css',
 			'striking-r' 					=> 'wp-content/themes/striking_r/framework/plugins/wordpress-importer/readme.txt',
 			'RightNow' 						=> 'wp-content/themes/RightNow/readme.txt',

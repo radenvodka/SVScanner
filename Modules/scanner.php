@@ -2,8 +2,8 @@
 /**
  * @Author: Eka Syahwan
  * @Date:   2018-09-05 18:29:21
- * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2018-09-07 01:00:41
+ * @Last Modified by:   shor7cut
+ * @Last Modified time: 2018-09-10 18:46:58
 */
 class Scanner
 {
@@ -13,13 +13,13 @@ class Scanner
 		$this->sdata 			= new Sdata;
 		$this->database 		= new Database;
 	}
-	public function cms_detector($array_url){
+	public function cms_detector($array_url , $scan_berapa){
 		##########################################################################
 		mkdir("result");
 		mkdir("result/cms-detector");
 		##########################################################################
 
-		echo "\r\n".$this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("navy","Checking cms ... [ ".count($array_url)." Request ]\r\n");
+		echo "\r\n".$this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("navy","Checking cms ... [ ".count($array_url)." Request [".$scan_berapa."] ]\r\n");
 		foreach ($array_url as $key => $dataURL) {
 			$url[] =  array('url' => $dataURL['url'] , 'note' =>  $dataURL['plugin']);
 			$hea[] =  array('follow' => true);
