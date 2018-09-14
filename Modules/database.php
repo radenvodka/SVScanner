@@ -3,7 +3,7 @@
  * @Author: Eka Syahwan
  * @Date:   2018-09-05 18:32:27
  * @Last Modified by:   shor7cut
- * @Last Modified time: 2018-09-12 09:02:40
+ * @Last Modified time: 2018-09-14 11:40:55
 */
 class Database
 {	
@@ -35,6 +35,11 @@ class Database
 			'title' 	=> 'Gravity Forms',
 			'action' 	=> 'Gravity_Forms', 
 		);
+		$menu[] = array(
+			'title' 	=> 'WP Content Injection',
+			'action' 	=> 'content_injection', 
+		);
+		
 		return $menu;
 	}
 	public function cms_detector(){
@@ -48,6 +53,7 @@ class Database
 	}
 	public function wordpress_plugins(){
 		$plugins = array(
+			'ckeditor-for-wordpress' 		=> 'wp-content/plugins/ckeditor-for-wordpress/readme.txt',
 			'email-subscribers' 			=> 'wp-content/plugins/email-subscribers/readme.txt',
 			'wp-checkout' 					=> 'wp-content/plugins/wp-checkout/readme.txt', 
 			'wp-responsive' 				=> 'wp-content/plugins/wp-responsive-thumbnail-slider/readme.txt', 

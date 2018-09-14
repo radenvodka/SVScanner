@@ -3,7 +3,7 @@
  * @Author: Eka Syahwan
  * @Date:   2018-09-05 18:29:21
  * @Last Modified by:   shor7cut
- * @Last Modified time: 2018-09-10 18:46:58
+ * @Last Modified time: 2018-09-14 11:58:19
 */
 class Scanner
 {
@@ -17,6 +17,7 @@ class Scanner
 		##########################################################################
 		mkdir("result");
 		mkdir("result/cms-detector");
+		mkdir("result/cms-detector/wordpress-version");
 		##########################################################################
 
 		echo "\r\n".$this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("navy","Checking cms ... [ ".count($array_url)." Request [".$scan_berapa."] ]\r\n");
@@ -32,7 +33,19 @@ class Scanner
 
 			foreach ($this->database->cms_detector() as $cms_name => $regex) {
 				if(preg_match("/".$regex."/", $value['respons'])){
-					$cms_ = $cms_name;
+					if('wp-content' == $regex){
+						preg_match_all('/<meta name="generator" content="WordPress (.*?)" \/>/m', $value['respons'], $version);
+						$cms_i 	= $cms_name." version ".$version[1][0];
+						
+						$fopn = fopen("result/cms-detector/wordpress-version/".$cms_name." ".str_replace(".", " ", $version[1][0]).".txt", "a+");
+						fwrite($fopn, $value['info']['url']."\r\n");
+						fclose($fopn);
+
+					}else{
+						$cms_i 	= $cms_name;
+					}
+
+					$cms_ 	= $cms_name;
 				}
 				if(!empty($cms_)){
 					break;
@@ -50,10 +63,10 @@ class Scanner
 					$_SESSION['ANY_CMS'] = ($_SESSION['ANY_CMS']+1);
 
 				}else{
-					
+
 					$fopn = fopen("result/cms-detector/".$cms_.".txt", "a+");
 
-					echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("green","[".$value['info']['http_code']."] ".$value['info']['url'])." => ".$this->wploit_modules->color("nevy",$cms_)."\r\n";
+					echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("green","[".$value['info']['http_code']."] ".$value['info']['url'])." => ".$this->wploit_modules->color("nevy",$cms_i)."\r\n";
 
 					fwrite($fopn, $value['info']['url']."\r\n");
 
@@ -87,7 +100,7 @@ class Scanner
 			$_SESSION['temp_size']  = ($_SESSION['temp_size']+$value['info']['http_code']);
 
 
-			if( $value['info']['http_code'] == 200 && !preg_match("/<body>/", $value['respons'])){
+			if( $value['info']['http_code'] == 200 && !preg_match("/<body>/", $value['respons']) && !empty($value['respons']) ){
 				
 				##########################################################################
 				mkdir("result");
@@ -99,6 +112,7 @@ class Scanner
 				fwrite($fopn, $value['data']['url']."\r\n");
 				echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("green","[".$value['info']['http_code']."] ".$value['data']['url']."\r\n");
 				$_SESSION['200'] = ($_SESSION['200']+1);
+
 			}else if( $value['info']['http_code'] == 403 ){
 				echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("yellow","[".$value['info']['http_code']."] ".$value['data']['url']."\r\n");
 				$_SESSION['403'] = ($_SESSION['403']+1);
