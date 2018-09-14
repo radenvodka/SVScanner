@@ -11,11 +11,12 @@ require_once("Exploit/default-admin.php");
 require_once("Exploit/plugins-email-subscribers.php");
 require_once("Exploit/plugins-gravityforms.php");
 require_once("Exploit/wp-content-injection.php");
+require_once("Exploit/magento-exploit.php");
 /**
  * @Author: Eka Syahwan
  * @Date:   2017-12-11 17:01:26
- * @Last Modified by:   shor7cut
- * @Last Modified time: 2018-09-14 12:59:54
+ * @Last Modified by:   Eka Syahwan
+ * @Last Modified time: 2018-09-14 16:31:01
 */
 class wploit
 {
@@ -31,10 +32,11 @@ class wploit
 		$this->Exploit_Plugins_emailsubscribers = new Exploit_Plugins_emailsubscribers;
 		$this->Exploit_Plugins_gravityforms 	= new Exploit_Plugins_gravityforms;
 		$this->Exploit_wp_content_injection 	= new Exploit_wp_content_injection;
+		$this->Exploit_Magento 					= new Exploit_Magento;
 
 
 	  	echo $this->wploit_modules->color("green","\n========================================================\r\n\n");
-        echo $this->wploit_modules->color("green","┌─┐┬  ┬┌─┐┌─┐┌─┐┌┐┌┌┐┌┌─┐┬─┐ Version : 1.0\r\n");
+        echo $this->wploit_modules->color("green","┌─┐┬  ┬┌─┐┌─┐┌─┐┌┐┌┌┐┌┌─┐┬─┐ Version : 1.3\r\n");
 		echo $this->wploit_modules->color("green","└─┐└┐┌┘└─┐│  ├─┤││││││├┤ ├┬┘ Author  : Eka Syahwan\r\n");
 		echo $this->wploit_modules->color("green","└─┘ └┘ └─┘└─┘┴ ┴┘└┘┘└┘└─┘┴└─\r\n");
        	echo $this->wploit_modules->color("random","\r\n-= Scanner Vulnerability And MaSsive Exploit =-\r\n");
@@ -54,14 +56,17 @@ class wploit
 		$select = $this->wploit_modules->stuck("Select Number : ");
 		$threads = $this->wploit_modules->stuck("Threads : ");
 		
-		//$select  	= 3;
-		//$threads  	= 100;
-
 		$this->wploit_modules->threads 	= $threads;
 		
 		switch ($this->menu[$select]['action']) {
 			case 'wordpress_scanner_plugin':
 				$this->scanner_plugins();echo "\r\n";
+			break;
+			case 'scanner_plugins_joomla':
+				$this->scanner_plugins_joomla();echo "\r\n";
+			break;
+			case 'magento_exploit':
+				$this->scanner_magento();echo "\r\n";
 			break;
 			case 'wordpress_exploit_plugin_themes':
 				echo "\r\n";
@@ -105,6 +110,25 @@ class wploit
 		$url = (!isset($url["scheme"]) ? "http://".$urlS : $url["scheme"]."://".$url["host"]);
 		return $url;
 	}
+
+	function scanner_magento(){
+		$dataConfig = $this->wploit_modules->required();
+		$xselc  	= $this->wploit_modules->stuck("Total Request : ".(count($dataConfig['list'])*$dataConfig['threads'])." , Keep going ? [0 = NO , 1 = YES] : ");echo "\r\n";
+		if($xselc == 0){
+			die('!error!');
+		}
+		foreach ($dataConfig['list'] as $keys => $dataurl) {
+			$fopn = fopen("log/log-magento-".$dataConfig['namafile'].".txt", "w");
+			foreach ($dataurl as $ukey => $url) {
+				$logScan 	  = ($logScan+1);
+				$config_url[] =  array('url' => $this->filter_domain($url));
+				fwrite($fopn, $ukey."|".$url."\r\n");
+			}
+			fclose($fopn);
+			$this->Exploit_Magento->scanner($config_url , "Line : ".$logScan." of ".ceil((count($dataConfig['list'])*$dataConfig['threads'])) ); unset($config_url);
+			sleep($dataConfig['delay']);
+		}
+	}
 	function scanner_plugins(){
 		$dataConfig = $this->wploit_modules->required();
 		$xselc  = $this->wploit_modules->stuck("Total Request : ".(count($dataConfig['list'])*$dataConfig['threads'])." ( ".(count($this->database->wordpress_plugins())*$dataConfig['threads'])." / Request ), Keep going ? [0 = NO , 1 = YES] : ");echo "\r\n";
@@ -121,6 +145,25 @@ class wploit
 			}
 			fclose($fopn);
 			$this->scanner->wordpress_plugins($config_url); unset($config_url);
+			sleep($dataConfig['delay']);
+		}
+	}
+	function scanner_plugins_joomla(){
+		$dataConfig = $this->wploit_modules->required();
+		$xselc  = $this->wploit_modules->stuck("Total Request : ".(count($dataConfig['list'])*$dataConfig['threads'])." ( ".(count($this->database->wordpress_plugins())*$dataConfig['threads'])." / Request ), Keep going ? [0 = NO , 1 = YES] : ");echo "\r\n";
+		if($xselc == 0){
+			die('!error!');
+		}
+		foreach ($dataConfig['list'] as $keys => $dataurl) {
+			$fopn = fopen("log/log-scannerPlugins-".$dataConfig['namafile'].".txt", "w");
+			foreach ($dataurl as $ukey => $url) {
+				foreach ($this->database->joomla_plugins() as $key => $dbPlugins) {
+					$config_url[] =  array('url' => $this->filter_domain($url)."/".$dbPlugins , 'plugin' => $key);
+				}
+				fwrite($fopn, $ukey."|".$url."\r\n");
+			}
+			fclose($fopn);
+			$this->scanner->joomla_plugins($config_url); unset($config_url);
 			sleep($dataConfig['delay']);
 		}
 	}

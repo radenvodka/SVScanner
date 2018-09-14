@@ -3,8 +3,8 @@ error_reporting(0);
 /**
  * @Author: Eka Syahwan
  * @Date:   2017-11-06 22:54:36
- * @Last Modified by:   shor7cut
- * @Last Modified time: 2018-09-13 12:11:58
+ * @Last Modified by:   Eka Syahwan
+ * @Last Modified time: 2018-09-14 14:54:59
  */
 class Sdata
 {
@@ -87,9 +87,10 @@ class Sdata
 		       		'data' 		=> $threads_data, 
 		       		'respons' 	=> $result,
 		       		'info' 		=> array(
-		       			'size' 		=> $info['size_download'],
-		       			'url' 		=> $info['url'],
-		       			'http_code' => $info['http_code'], 
+		       			'content-type' 	=> $info['content_type'],
+		       			'size' 			=> $info['size_download'],
+		       			'url' 			=> $info['url'],
+		       			'http_code' 	=> $info['http_code'], 
 		       		),
 		       	);
 		        curl_multi_remove_handle($mh, $info['handle']);

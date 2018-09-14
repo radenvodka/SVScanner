@@ -2,8 +2,8 @@
 /**
  * @Author: Eka Syahwan
  * @Date:   2018-09-05 18:29:21
- * @Last Modified by:   shor7cut
- * @Last Modified time: 2018-09-14 11:58:19
+ * @Last Modified by:   Eka Syahwan
+ * @Last Modified time: 2018-09-14 16:30:36
 */
 class Scanner
 {
@@ -114,6 +114,57 @@ class Scanner
 				$_SESSION['200'] = ($_SESSION['200']+1);
 
 			}else if( $value['info']['http_code'] == 403 ){
+				echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("yellow","[".$value['info']['http_code']."] ".$value['data']['url']."\r\n");
+				$_SESSION['403'] = ($_SESSION['403']+1);
+			}else{
+				$_SESSION['ANY'] = ($_SESSION['ANY']+1);
+				echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("red","[".$value['info']['http_code']."] ".$value['data']['url']."\r\n");
+			}
+		}
+		fclose($fopn);
+		echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("navy","Check plugins ... finished ( Download Size : ".$this->wploit_modules->formatSizeUnits($_SESSION['temp_size'])." | Total Download : ".$this->wploit_modules->formatSizeUnits($_SESSION['total_size']).")\r\n");
+		echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("navy","[Http Code 200 : ".$_SESSION['200']."]\r\n");
+		echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("navy","[Http Code 403 : ".$_SESSION['403']."]\r\n");
+		echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("navy","[Http Code -   : ".$_SESSION['ANY']."]\r\n");
+
+		unset($_SESSION['temp_size']);
+	}
+	public function joomla_plugins($array_url){
+		#####################################################
+		mkdir("result");
+		mkdir("result/joomla-scanner");
+		mkdir("result/joomla-scanner/403");
+		#####################################################
+
+		echo "\r\n".$this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("navy","Checking for plugins ... [ ".count($array_url)." request ]\r\n");
+		foreach ($array_url as $key => $dataURL) {
+			$url[] =  array('url' => $dataURL['url'] , 'note' =>  $dataURL['plugin']);
+			$hea[] =  array('follow' => false,'rto' => 30);
+		}
+		$respons = $this->sdata->sdata($url , $hea);  $this->sdata->session_remove($respons);
+		foreach ($respons as $key => $value) {
+			
+			$_SESSION['total_size'] = ($_SESSION['total_size']+$value['info']['http_code']);
+			$_SESSION['temp_size']  = ($_SESSION['temp_size']+$value['info']['http_code']);
+
+
+			if( $value['info']['http_code'] == 200 && preg_match("/<config>/", $value['respons']) && !empty($value['respons']) ){
+					
+				##########################################################################
+				$fopn = fopen("result/joomla-scanner/".$value['data']['note'].".txt", "a+");
+				##########################################################################
+
+				fwrite($fopn, $value['data']['url']."\r\n");
+				echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("green","[".$value['info']['http_code']."] ".$value['data']['url']."\r\n");
+				
+				$_SESSION['200'] = ($_SESSION['200']+1);
+
+			}else if( $value['info']['http_code'] == 403 ){
+				
+				$fopxn = fopen("result/joomla-scanner/403/".$value['data']['note'].".txt", "a+");
+				fwrite($fopxn, $value['data']['url']."\r\n");
+				fclose($fopxn);
+
 				echo $this->wploit_modules->color("green","[SVScanner] ").$this->wploit_modules->color("yellow","[".$value['info']['http_code']."] ".$value['data']['url']."\r\n");
 				$_SESSION['403'] = ($_SESSION['403']+1);
 			}else{

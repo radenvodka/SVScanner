@@ -2,8 +2,8 @@
 /**
  * @Author: Eka Syahwan
  * @Date:   2018-09-05 18:48:37
- * @Last Modified by:   shor7cut
- * @Last Modified time: 2018-09-10 17:38:18
+ * @Last Modified by:   Eka Syahwan
+ * @Last Modified time: 2018-09-14 16:15:23
  */
 class wploit_modules
 {
@@ -80,7 +80,7 @@ class wploit_modules
 		}
 		
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $fgt = explode("\r\n", $fgt);
+            $fgt = explode("\n", $fgt);
         } else {
             $fgt = explode("\n", $fgt);
         }
@@ -96,7 +96,7 @@ class wploit_modules
 		return array('list' => $fgt,'delay' => $delay,'threads' => $threads , 'namafile' => $namafile);
 	}
     public function color($color = "random" , $text){
-    	if(false == true){
+    	if(true == true){
 	    	$arrayColor = array(
 				'grey' 		=> '1;30',
 				'red' 		=> '1;31',
