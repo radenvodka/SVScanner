@@ -80,7 +80,7 @@ class wploit_modules
 		}
 		
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $fgt = explode("\n", $fgt);
+            $fgt = explode("\r\n", $fgt);
         } else {
             $fgt = explode("\n", $fgt);
         }
