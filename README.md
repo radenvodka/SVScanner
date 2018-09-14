@@ -1,6 +1,6 @@
 # SVScanner - Scanner Vulnerability And MaSsive Exploit.
 
-[![Version](https://img.shields.io/badge/SVScanner-1.1-brightgreen.svg?maxAge=259200)]()
+[![Version](https://img.shields.io/badge/SVScanner-1.2-brightgreen.svg?maxAge=259200)]()
 [![Stage](https://img.shields.io/badge/Release-Stable-brightgreen.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-Linux-orange.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-Windows-blue.svg)]()
