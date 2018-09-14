@@ -52,10 +52,10 @@ class wploit
 		}
 		echo $this->wploit_modules->color("random","\n========================================================\r\n\n");
 		$select = $this->wploit_modules->stuck("Select Number : ");
-		//$threads = $this->wploit_modules->stuck("Threads : ");
+		$threads = $this->wploit_modules->stuck("Threads : ");
 		
 		//$select  	= 3;
-		$threads  	= 100;
+		//$threads  	= 100;
 
 		$this->wploit_modules->threads 	= $threads;
 		
