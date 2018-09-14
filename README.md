@@ -29,6 +29,10 @@ Is a tool for scanning and massive exploits. Our tools target several open sourc
 - Pak Haxor 
 - FaturFreak
 
+## News 
+- https://www.linuxsec.org/2018/09/svscanner.html
+- 
+
 ## Want to contribute
 
 send the target live and what exploits are used.
