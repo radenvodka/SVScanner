@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+//error_reporting(0);
 session_start();
 define('SENDINBOX_PATH', realpath(dirname(__FILE__)));
 require_once("Modules/database.php");
@@ -36,7 +36,7 @@ class wploit
 
 
 	  	echo $this->wploit_modules->color("green","\n========================================================\r\n\n");
-        echo $this->wploit_modules->color("green","┌─┐┬  ┬┌─┐┌─┐┌─┐┌┐┌┌┐┌┌─┐┬─┐ Version : 1.2\r\n");
+        echo $this->wploit_modules->color("green","┌─┐┬  ┬┌─┐┌─┐┌─┐┌┐┌┌┐┌┌─┐┬─┐ Version : 1.3\r\n");
 		echo $this->wploit_modules->color("green","└─┐└┐┌┘└─┐│  ├─┤││││││├┤ ├┬┘ Author  : Eka Syahwan\r\n");
 		echo $this->wploit_modules->color("green","└─┘ └┘ └─┘└─┘┴ ┴┘└┘┘└┘└─┘┴└─\r\n");
        	echo $this->wploit_modules->color("random","\r\n-= Scanner Vulnerability And MaSsive Exploit =-\r\n");

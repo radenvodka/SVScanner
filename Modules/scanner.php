@@ -3,7 +3,7 @@
  * @Author: Eka Syahwan
  * @Date:   2018-09-05 18:29:21
  * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2018-09-14 16:30:36
+ * @Last Modified time: 2018-09-14 19:42:16
 */
 class Scanner
 {
@@ -148,7 +148,7 @@ class Scanner
 			$_SESSION['temp_size']  = ($_SESSION['temp_size']+$value['info']['http_code']);
 
 
-			if( $value['info']['http_code'] == 200 && preg_match("/<config>/", $value['respons']) && !empty($value['respons']) ){
+			if( $value['info']['http_code'] == 200 && !preg_match("/<body>/", $value['respons']) && !empty($value['respons']) ){
 					
 				##########################################################################
 				$fopn = fopen("result/joomla-scanner/".$value['data']['note'].".txt", "a+");
