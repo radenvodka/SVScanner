@@ -27,7 +27,7 @@ Is a tool for scanning and massive exploits. Our tools target several open sourc
 - Edo Maland (Powerstager) https://github.com/Screetsec
 - Jack Wilder admin in http://www.linuxsec.org
 
-## want to contribute
+## Want to contribute
 
 send the target live and what exploits are used.
 then send to maunikah1337@gmail.com
