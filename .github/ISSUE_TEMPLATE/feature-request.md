@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: submit feature
+about: submit feature / new exploit and any
 
 ---
 
