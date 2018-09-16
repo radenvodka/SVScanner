@@ -24,6 +24,7 @@ Is a tool for scanning and massive exploits. Our tools target several open sourc
 ## Credits
 
 - Thanks to allah
+- Eka Syahwan (Creator) https:/bugrecon.or.id
 - Edo Maland (Powerstager) https://github.com/Screetsec
 - Jack Wilder admin in http://www.linuxsec.org
 - Pak Haxor 
@@ -31,6 +32,8 @@ Is a tool for scanning and massive exploits. Our tools target several open sourc
 
 ## News 
 - https://www.linuxsec.org/2018/09/svscanner.html
+- https://www.kitploit.com/2018/09/svscanner-scanner-vulnerability-and.html
+- https://www.hacking.land/2018/09/svscanner-scanner-vulnerability-and.html
 - 
 
 ## Want to contribute
