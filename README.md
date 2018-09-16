@@ -33,7 +33,7 @@ Is a tool for scanning and massive exploits. Our tools target several open sourc
 ## News 
 - https://www.linuxsec.org/2018/09/svscanner.html
 - https://www.kitploit.com/2018/09/svscanner-scanner-vulnerability-and.html
-
+- http://www.prodefence.org/svscanner-scanner-vulnerability-and-massive-exploit/
 
 ## Want to contribute
 
