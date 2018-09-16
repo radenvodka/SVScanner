@@ -12,11 +12,13 @@ require_once("Exploit/plugins-email-subscribers.php");
 require_once("Exploit/plugins-gravityforms.php");
 require_once("Exploit/wp-content-injection.php");
 require_once("Exploit/magento-exploit.php");
+require_once("Exploit/joomla_jLike.php");
+
 /**
  * @Author: Eka Syahwan
  * @Date:   2017-12-11 17:01:26
- * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2018-09-14 16:31:01
+ * @Last Modified by:   shor7cut
+ * @Last Modified time: 2018-09-16 13:53:04
 */
 class wploit
 {
@@ -33,7 +35,7 @@ class wploit
 		$this->Exploit_Plugins_gravityforms 	= new Exploit_Plugins_gravityforms;
 		$this->Exploit_wp_content_injection 	= new Exploit_wp_content_injection;
 		$this->Exploit_Magento 					= new Exploit_Magento;
-
+		$this->Exploit_jLike 					= new Exploit_jLike;
 
 	  	echo $this->wploit_modules->color("green","\n========================================================\r\n\n");
         echo $this->wploit_modules->color("green","┌─┐┬  ┬┌─┐┌─┐┌─┐┌┐┌┌┐┌┌─┐┬─┐ Version : 1.3\r\n");
@@ -48,6 +50,7 @@ class wploit
 		$this->wploit_modules->delay 	= 0;
 		$this->menu 					= $this->database->menu();
 		$this->menu_exploit 			= $this->database->menu_exploit();
+		$this->menu_exploit_joomla      = $this->database->menu_exploitJoomla();
 		#########################################
 		foreach ($this->menu as $key => $value) {
 			echo $this->wploit_modules->color("nevy","[SVScanner] [".$key."] ".$value['title']."\r\n");
@@ -69,6 +72,7 @@ class wploit
 				$this->scanner_magento();echo "\r\n";
 			break;
 			case 'wordpress_exploit_plugin_themes':
+				
 				echo "\r\n";
 				echo $this->wploit_modules->color("random","\n========================[ MENU EXPLOIT ]================\r\n\n");
 				foreach ($this->menu_exploit as $key => $value) {
@@ -94,6 +98,26 @@ class wploit
 				}
 
 			break;
+			case 'joomla_exploit_menu':
+				
+				echo "\r\n";
+				echo $this->wploit_modules->color("random","\n========================[ MENU EXPLOIT ]================\r\n\n");
+				foreach ($this->menu_exploit_joomla as $key => $value) {
+					echo $this->wploit_modules->color("nevy","[SVScanner] [".$key."] ".$value['title']."\r\n");
+				}
+				echo $this->wploit_modules->color("random","\n========================================================\r\n\n");
+				$select = $this->wploit_modules->stuck("Select Number : ");
+
+				switch ($this->menu_exploit_joomla[$select]['action']) {
+					case 'jLike_Component':
+						$this->exploit_joomlaJlike();
+					break;
+					default:
+						die('!error!');
+					break;
+				}
+
+			break;
 			case 'scanner_cms_detector':
 				$this->scanner_cms();echo "\r\n";
 			break;
@@ -108,7 +132,7 @@ class wploit
 	function filter_domain($urlS){
 		$url = parse_url($urlS);
 		$url = (!isset($url["scheme"]) ? "http://".$urlS : $url["scheme"]."://".$url["host"]);
-		return $url;
+		return str_replace("_", "", $url);
 	}
 
 	function scanner_magento(){
@@ -256,6 +280,24 @@ class wploit
 			}
 			fclose($fopn);
 			$this->Exploit_wp_content_injection->scanner($config_url , "Line : ".$logScan." of ".ceil((count($dataConfig['list'])*$dataConfig['threads'])) ); unset($config_url);
+			sleep($dataConfig['delay']);
+		}
+	}
+	function exploit_joomlaJlike(){
+		$dataConfig = $this->wploit_modules->required();
+		$xselc  	= $this->wploit_modules->stuck("Total Request : ".(count($dataConfig['list'])*$dataConfig['threads'])." , Keep going ? [0 = NO , 1 = YES] : ");echo "\r\n";
+		if($xselc == 0){
+			die('!error!');
+		}
+		foreach ($dataConfig['list'] as $keys => $dataurl) {
+			$fopn = fopen("log/log-Joomla-Jlike-".$dataConfig['namafile'].".txt", "w");
+			foreach ($dataurl as $ukey => $url) {
+				$logScan 	  = ($logScan+1);
+				$config_url[] =  array('url' => $this->filter_domain($url));
+				fwrite($fopn, $ukey."|".$url."\r\n");
+			}
+			fclose($fopn);
+			$this->Exploit_jLike->scanner($config_url , "Line : ".$logScan." of ".ceil((count($dataConfig['list'])*$dataConfig['threads'])) ); unset($config_url);
 			sleep($dataConfig['delay']);
 		}
 	}

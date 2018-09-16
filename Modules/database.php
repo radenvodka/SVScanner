@@ -2,8 +2,8 @@
 /**
  * @Author: Eka Syahwan
  * @Date:   2018-09-05 18:32:27
- * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2018-09-14 20:16:21
+ * @Last Modified by:   shor7cut
+ * @Last Modified time: 2018-09-16 13:50:43
 */
 class Database
 {	
@@ -32,6 +32,10 @@ class Database
 			'title' 	=> '[Joomla] Scanner Plugin',
 			'action' 	=> 'scanner_plugins_joomla', 
 		);
+		$menu[] = array(
+			'title' 	=> '[Joomla] Exploit ',
+			'action' 	=> 'joomla_exploit_menu', 
+		);
 		return $menu;
 	}
 	public function menu_exploit(){
@@ -46,6 +50,14 @@ class Database
 		$menu[] = array(
 			'title' 	=> 'WP Content Injection',
 			'action' 	=> 'content_injection', 
+		);
+		
+		return $menu;
+	}
+	public function menu_exploitJoomla(){
+		$menu[] = array(
+			'title' 	=> 'jLike 1.0 - Information Leak',
+			'action' 	=> 'jLike_Component', 
 		);
 		
 		return $menu;
