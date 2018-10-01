@@ -2,8 +2,8 @@
 /**
  * @Author: Eka Syahwan
  * @Date:   2018-09-05 18:32:27
- * @Last Modified by:   shor7cut
- * @Last Modified time: 2018-09-16 13:50:43
+ * @Last Modified by:   Eka Syahwan
+ * @Last Modified time: 2018-10-01 03:59:49
 */
 class Database
 {	
@@ -51,7 +51,10 @@ class Database
 			'title' 	=> 'WP Content Injection',
 			'action' 	=> 'content_injection', 
 		);
-		
+		$menu[] = array(
+			'title' 	=> 'Woocommerce order export',
+			'action' 	=> 'w_o_e', 
+		);
 		return $menu;
 	}
 	public function menu_exploitJoomla(){

